@@ -7,7 +7,8 @@ enum class GameFieldCellType
 	BLOCK,
 	GEM_1,
 	GEM_2,
-	GEM_3
+	GEM_3,
+	MAX_VALUE
 };
 
 struct GameFieldCellDesc

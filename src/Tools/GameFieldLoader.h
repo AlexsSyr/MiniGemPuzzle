@@ -6,5 +6,5 @@ class GameField;
 class GameFieldLoader
 {
 public:
-	static GameField LoadField(const Path& path) const;
+	static GameField LoadField(const Path& path);
 };
