@@ -1,5 +1,6 @@
 #pragma once
 #include "GameField.h"
+#include "Render.h"
 
 struct SDL_Window;
 
@@ -16,4 +17,5 @@ private:
 	bool run = true;
 	SDL_Window* window = nullptr;
 	GameField gameField;
+	Render render;
 };
