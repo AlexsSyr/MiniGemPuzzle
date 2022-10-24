@@ -1,4 +1,5 @@
 #pragma once
+#include "GameField.h"
 
 struct SDL_Window;
 
@@ -14,4 +15,5 @@ public:
 private:
 	bool run = true;
 	SDL_Window* window = nullptr;
+	GameField gameField;
 };
