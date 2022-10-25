@@ -20,11 +20,12 @@ struct GameFieldCellDesc
 
 struct GameFieldCellCanvasPos
 {
-	uint32 x = 0;
-	uint32 y = 0;
+	int32 x = 0;
+	int32 y = 0;
 };
 
-#define FIELD_SIZE 5
+const uint32 FIELD_SIZE = 5;
+const int32 NO_SELECTED_CELL = -1;
 
 class GameField
 {
@@ -40,9 +41,14 @@ public:
 
 	GameFieldCellType GetCellType(uint32 posX, uint32 posY) const;
 	GameFieldCellCanvasPos GetCellCanvasPos(uint32 posX, uint32 posY) const;
+	GameFieldCellCanvasPos GetCellCanvas—enteredPos(uint32 posX, uint32 posY) const;
+
+	void SetSelectedCellIndex(int32 index);
+	int32 GetSelectedCellIndex() const;
 
 private:
 	GameFieldCellType field[FIELD_SIZE][FIELD_SIZE] = { GameFieldCellType::FREE };
 	GameFieldCellCanvasPos grid[FIELD_SIZE][FIELD_SIZE] = { };
 	uint32 gridCellSize = 0;
+	int32 selectedCellIndex = NO_SELECTED_CELL;
 };

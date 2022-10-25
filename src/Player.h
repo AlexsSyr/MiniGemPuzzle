@@ -15,4 +15,5 @@ private:
 	PlayerInput* playerInput = nullptr;
 
 	void OnMouseButtonDown(int32 posX, int32 posY);
+	int32 ComputeClickedCellIndex(int32 posX, int32 posY) const;
 };

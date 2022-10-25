@@ -42,3 +42,22 @@ GameFieldCellCanvasPos GameField::GetCellCanvasPos(uint32 posX, uint32 posY) con
 {
 	return grid[posX][posY];
 }
+
+GameFieldCellCanvasPos GameField::GetCellCanvas—enteredPos(uint32 posX, uint32 posY) const
+{
+	GameFieldCellCanvasPos cellPos = grid[posX][posY];
+	cellPos.x += gridCellSize / 2;
+	cellPos.y += gridCellSize / 2;
+
+	return cellPos;
+}
+
+void GameField::SetSelectedCellIndex(int32 index)
+{
+	selectedCellIndex = index;
+}
+
+int32 GameField::GetSelectedCellIndex() const
+{
+	return selectedCellIndex;
+}

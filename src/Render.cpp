@@ -94,6 +94,9 @@ void Render::DrawFieldCell(const SDL_Rect& rectangle, const GameField& gameField
 		break;
 	}
 
+	if(posX * gameField.GetSize() + posY == gameField.GetSelectedCellIndex())
+		SDL_SetRenderDrawColor(render, 0xFF, 0xFF, 0x00, 0xFF);
+
 	SDL_RenderFillRect(render, &rectangle);
 
 	SDL_SetRenderDrawColor(render, clearColor.r, clearColor.g, clearColor.b, 0xFF);
