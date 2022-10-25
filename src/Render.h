@@ -3,6 +3,8 @@
 
 struct SDL_Renderer;
 struct SDL_Window;
+struct SDL_Rect;
+
 class GameField;
 
 struct RenderClearColor
@@ -26,6 +28,9 @@ public:
 	void DrawField(const GameField& gameField);
 
 private:
+	SDL_Window* window = nullptr;
 	SDL_Renderer* render = nullptr;
 	RenderClearColor clearColor;
+
+	void DrawFieldCell(const SDL_Rect& rectangle, const GameField& gameField, uint32 posX, uint32 posY);
 };

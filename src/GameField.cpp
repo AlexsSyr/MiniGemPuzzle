@@ -7,3 +7,13 @@ GameField::GameField(const Vector<GameFieldCellDesc>& cells)
 		field[x][y] = cellType;
 	}
 }
+
+uint32 GameField::GetSize() const
+{
+	return FIELD_SIZE;
+}
+
+GameFieldCellType GameField::GetCellType(uint32 posX, uint32 posY) const
+{
+	return field[posX][posY];
+}

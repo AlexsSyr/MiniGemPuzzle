@@ -40,8 +40,10 @@ void Game::Run()
 			if (event.type == SDL_QUIT)
 				run = false;
 		}
-
+		
+		render.Clear();
 		render.DrawField(gameField);
+		render.Present();
 	}
 }
 

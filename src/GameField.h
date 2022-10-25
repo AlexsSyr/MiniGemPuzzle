@@ -18,6 +18,8 @@ struct GameFieldCellDesc
 	GameFieldCellType type = GameFieldCellType::FREE;
 };
 
+#define FIELD_SIZE 5
+
 class GameField
 {
 public:
@@ -25,6 +27,11 @@ public:
 	GameField() = default;
 	GameField(const Vector<GameFieldCellDesc>& cells);
 
+	uint32 GetSize() const;
+	
+	GameFieldCellType GetCellType(uint32 posX, uint32 posY) const;
+
+
 private:
-	GameFieldCellType field[5][5] = { GameFieldCellType::FREE };
+	GameFieldCellType field[FIELD_SIZE][FIELD_SIZE] = { GameFieldCellType::FREE };
 };
