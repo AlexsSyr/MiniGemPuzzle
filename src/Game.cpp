@@ -27,6 +27,14 @@ void Game::Initialize()
 	render.SetClearColor(0xAA, 0xAA, 0xAA);
 
 	gameField = GameFieldLoader::LoadField("Levels//Level1.lvl");
+
+	int32 windowW = 0;
+	int32 windowH = 0;
+	SDL_GetWindowSize(window, &windowW, &windowH);
+
+	gameField.UpdateGrid(windowW, windowH);
+
+	player.Initialize(playerInput, gameField);
 }
 
 void Game::Run()
@@ -40,18 +48,34 @@ void Game::Run()
 			switch (event.type)
 			{
 			case SDL_QUIT:
+			{
 				run = false;
 				break;
+			}
+			case SDL_WINDOWEVENT:
+			{
+				if (event.window.event != SDL_WINDOWEVENT_RESIZED)
+					break;
+
+				int32 windowW = 0;
+				int32 windowH = 0;
+				SDL_GetWindowSize(window, &windowW, &windowH);
+
+				gameField.UpdateGrid(windowW, windowH);
+
+				break;
+			}
 			case SDL_MOUSEBUTTONDOWN:
-				
+			{
 				int32 mousePosX = 0;
 				int32 mousePosY = 0;
 				const Uint32 mouseButtons = SDL_GetMouseState(&mousePosX, &mousePosY);
-				
-				if(mouseButtons | SDL_BUTTON_LMASK)
+
+				if (mouseButtons | SDL_BUTTON_LMASK)
 					playerInput.MouseButtonDown(mousePosX, mousePosY);
 
 				break;
+			}
 			}
 		}
 		

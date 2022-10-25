@@ -2,6 +2,7 @@
 #include "GameField.h"
 #include "Render.h"
 #include "PlayerInput.h"
+#include "Player.h"
 
 struct SDL_Window;
 
@@ -20,4 +21,5 @@ private:
 	GameField gameField;
 	Render render;
 	PlayerInput playerInput;
+	Player player;
 };

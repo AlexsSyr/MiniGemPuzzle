@@ -8,7 +8,7 @@ void PlayerInput::MouseButtonDown(int32 posX, int32 posY)
 	}
 }
 
-void PlayerInput::AddMouseButtonDownCallback(MouseButtonDownCallback callback)
+void PlayerInput::AddMouseButtonDownCallback(const MouseButtonDownCallback& callback)
 {
 	mouseButtonDownCallbacks.push_back(callback);
 }

@@ -45,30 +45,24 @@ void Render::Present()
 
 void Render::DrawField(const GameField& gameField)
 {
-	int32 canvasW = 0;
-	int32 canvasH = 0;
-
-	SDL_GetWindowSize(window, &canvasW, &canvasH);
-
-	if (canvasW == 0 || canvasH == 0)
-		return;
-
-	const int32 cellSize = std::min(canvasW, canvasH) * 0.15;
 	const uint32 fieldSize = gameField.GetSize();
-	const uint32 gridPosX = (canvasW - cellSize * fieldSize) / 2;
-	const uint32 gridPosY = (canvasH - cellSize * fieldSize) / 2;
+	const uint32 cellSize = gameField.GetCellSize();
 
 	SDL_Rect rectangle = 
 	{
-		.w = cellSize,
-		.h = cellSize
+		.w = static_cast<int32>(cellSize),
+		.h = static_cast<int32>(cellSize)
 	};
+
+	GameFieldCellCanvasPos canvasPos = { };
 
 	for(uint32 i = 0; i < fieldSize; ++i)
 		for (uint32 j = 0; j < fieldSize; ++j)
 		{
-			rectangle.x = gridPosX + j * cellSize;
-			rectangle.y = gridPosY + i * cellSize;
+			canvasPos = gameField.GetCellCanvasPos(i, j);
+
+			rectangle.x = canvasPos.x;
+			rectangle.y = canvasPos.y;
 
 			DrawFieldCell(rectangle, gameField, i, j);
 		}
