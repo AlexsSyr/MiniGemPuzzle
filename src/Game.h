@@ -1,6 +1,7 @@
 #pragma once
 #include "GameField.h"
 #include "Render.h"
+#include "PlayerInput.h"
 
 struct SDL_Window;
 
@@ -18,4 +19,5 @@ private:
 	SDL_Window* window = nullptr;
 	GameField gameField;
 	Render render;
+	PlayerInput playerInput;
 };

@@ -37,8 +37,22 @@ void Game::Run()
 	{
 		while (SDL_PollEvent(&event) != 0)
 		{
-			if (event.type == SDL_QUIT)
+			switch (event.type)
+			{
+			case SDL_QUIT:
 				run = false;
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				
+				int32 mousePosX = 0;
+				int32 mousePosY = 0;
+				const Uint32 mouseButtons = SDL_GetMouseState(&mousePosX, &mousePosY);
+				
+				if(mouseButtons | SDL_BUTTON_LMASK)
+					playerInput.MouseButtonDown(mousePosX, mousePosY);
+
+				break;
+			}
 		}
 		
 		render.Clear();
