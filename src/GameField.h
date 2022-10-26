@@ -11,6 +11,8 @@ enum class GameFieldCellType
 	MAX_VALUE
 };
 
+const uint32 GEM_TYPE_COUNT = 3;
+
 struct GameFieldCellDesc
 {
 	uint32 x = 0;
@@ -50,9 +52,14 @@ public:
 
 	void SwapCells(int32 index1, int32 index2);
 
+	void —ountGemMatch();
+
+	bool CheckVictory—ondition() const;
+
 private:
 	GameFieldCellType field[FIELD_SIZE][FIELD_SIZE] = { GameFieldCellType::FREE };
 	GameFieldCellCanvasPos grid[FIELD_SIZE][FIELD_SIZE] = { };
 	uint32 gridCellSize = 0;
 	int32 selectedCellIndex = NO_SELECTED_CELL;
+	uint32 gemMatchCount[GEM_TYPE_COUNT] = { 0 };
 };

@@ -34,7 +34,11 @@ void Game::Initialize()
 
 	gameField.UpdateGrid(windowW, windowH);
 
-	player.Initialize(playerInput, gameField);
+	player.Initialize(playerInput, gameField, 
+		[this]()
+		{
+			Victory();
+		});
 }
 
 void Game::Run()
@@ -101,4 +105,15 @@ void Game::Exit()
 SDL_Window* Game::GetWindow() const
 {
 	return window;
+}
+
+void Game::Victory()
+{
+	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Victory !", "Victory !", window);
+	gameField = GameFieldLoader::LoadField("Levels//Level1.lvl");
+
+	int32 windowW = 0;
+	int32 windowH = 0;
+	SDL_GetWindowSize(window, &windowW, &windowH);
+	gameField.UpdateGrid(windowW, windowH);
 }

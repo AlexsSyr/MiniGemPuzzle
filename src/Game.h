@@ -22,4 +22,6 @@ private:
 	Render render;
 	PlayerInput playerInput;
 	Player player;
+
+	void Victory();
 };

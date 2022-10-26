@@ -3,10 +3,11 @@
 #include "GameField.h"
 #include <math.h>
 
-void Player::Initialize(PlayerInput& playerInput, GameField& gameField)
+void Player::Initialize(PlayerInput& playerInput, GameField& gameField, const std::function<void()> victoryCallback)
 {
 	this->playerInput = &playerInput;
 	this->gameField = &gameField;
+	this->victoryCallback = victoryCallback;
 
 	playerInput.AddMouseButtonDownCallback(
 		[this](int32 posX, int32 posY)
@@ -48,6 +49,11 @@ void Player::OnMouseButtonDown(int32 posX, int32 posY)
 		{
 			gameField->SwapCells(clickedCellIndex, currentSelectedCellIndex);
 			gameField->SetSelectedCellIndex(NO_SELECTED_CELL);
+
+			if (gameField->CheckVictory—ondition())
+			{
+				victoryCallback();
+			}
 		}
 		else
 		{

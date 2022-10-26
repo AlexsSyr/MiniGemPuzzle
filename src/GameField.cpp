@@ -6,6 +6,8 @@ GameField::GameField(const Vector<GameFieldCellDesc>& cells)
 	{
 		field[x][y] = cellType;
 	}
+
+	—ountGemMatch();
 }
 
 uint32 GameField::GetSize() const
@@ -23,13 +25,13 @@ void GameField::UpdateGrid(uint32 canvasW, uint32 canvasH)
 	gridCellSize = std::min(canvasW, canvasH) * 0.15;
 	const uint32 fieldSize = FIELD_SIZE;
 	const uint32 gridPosX = (canvasW - gridCellSize * fieldSize) / 2;
-	const uint32 gridPosY = (canvasH - gridCellSize * fieldSize) / 2;
+	const uint32 gridPosY = (canvasH - gridCellSize * fieldSize) * 0.8;
 
 	for (uint32 i = 0; i < fieldSize; ++i)
 		for (uint32 j = 0; j < fieldSize; ++j)
 		{
-			grid[i][j].x = gridPosX + j * gridCellSize;
-			grid[i][j].y = gridPosY + i * gridCellSize;
+			grid[i][j].x = gridPosX + j * (gridCellSize * 1.025);
+			grid[i][j].y = gridPosY + i * (gridCellSize * 1.025);
 		}
 }
 
@@ -70,4 +72,29 @@ int32 GameField::GetSelectedCellIndex() const
 void GameField::SwapCells(int32 index1, int32 index2)
 {
 	std::swap(field[index1 / FIELD_SIZE][index1 % FIELD_SIZE], field[index2 / FIELD_SIZE][index2 % FIELD_SIZE]);
+	—ountGemMatch();
+}
+
+void GameField::—ountGemMatch()
+{
+	for (uint32 i = 0; i < GEM_TYPE_COUNT; ++i)
+	{
+		gemMatchCount[i] = 0;
+		for (uint32 j = 0; j < FIELD_SIZE; ++j)
+		{
+			if (field[j][i * 2] == static_cast<GameFieldCellType>(static_cast<uint32>(GameFieldCellType::GEM_1) + i))
+				++gemMatchCount[i];
+		}
+	}
+}
+
+bool GameField::CheckVictory—ondition() const
+{
+	for (uint32 i = 0; i < GEM_TYPE_COUNT; ++i)
+	{
+		if (gemMatchCount[i] != FIELD_SIZE)
+			return false;
+	}
+
+	return true;
 }

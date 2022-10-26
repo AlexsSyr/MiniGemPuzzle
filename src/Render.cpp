@@ -66,6 +66,29 @@ void Render::DrawField(const GameField& gameField)
 
 			DrawFieldCell(rectangle, gameField, i, j);
 		}
+
+	canvasPos = gameField.GetCellCanvasPos(0, 0);
+
+	rectangle.w *= 0.70;
+	rectangle.h *= 0.70;
+
+	rectangle.x = canvasPos.x + cellSize * 0.15;
+	rectangle.y = canvasPos.y - cellSize;
+
+	SDL_SetRenderDrawColor(render, 0xFF, 0x00, 0x00, 0xFF);
+	SDL_RenderFillRect(render, &rectangle);
+
+	canvasPos = gameField.GetCellCanvasPos(0, 2);
+	rectangle.x = canvasPos.x + cellSize * 0.15;
+
+	SDL_SetRenderDrawColor(render, 0x00, 0xFF, 0x00, 0xFF);
+	SDL_RenderFillRect(render, &rectangle);
+
+	canvasPos = gameField.GetCellCanvasPos(0, 4);
+	rectangle.x = canvasPos.x; rectangle.x = canvasPos.x + cellSize * 0.15;
+
+	SDL_SetRenderDrawColor(render, 0x00, 0x00, 0xFF, 0xFF);
+	SDL_RenderFillRect(render, &rectangle);
 }
 
 void Render::DrawFieldCell(const SDL_Rect& rectangle, const GameField& gameField, uint32 posX, uint32 posY)
