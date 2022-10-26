@@ -20,6 +20,14 @@ void Player::OnMouseButtonDown(int32 posX, int32 posY)
 	const int32 fieldSize = gameField->GetSize();
 	const int32 clickedCellIndex = ComputeClickedCellIndex(posX, posY);
 	const int32 currentSelectedCellIndex = gameField->GetSelectedCellIndex();
+	const GameFieldCellType clickedCellType = gameField->GetCellType(clickedCellIndex);
+
+	if (clickedCellType == GameFieldCellType::BLOCK 
+		|| clickedCellType == GameFieldCellType::FREE && currentSelectedCellIndex == NO_SELECTED_CELL)
+	{
+		gameField->SetSelectedCellIndex(NO_SELECTED_CELL);
+		return;
+	}
 
 	if (currentSelectedCellIndex == NO_SELECTED_CELL)
 	{
@@ -33,9 +41,9 @@ void Player::OnMouseButtonDown(int32 posX, int32 posY)
 
 		const bool neighbor = distance < 2 && distance > 0;
 
-		if (neighbor)
+		if (neighbor && gameField->GetCellType(clickedCellIndex) == GameFieldCellType::FREE)
 		{
-			//TODO: SWAP
+			gameField->SwapCells(clickedCellIndex, currentSelectedCellIndex);
 			gameField->SetSelectedCellIndex(NO_SELECTED_CELL);
 		}
 		else

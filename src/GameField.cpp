@@ -38,6 +38,11 @@ GameFieldCellType GameField::GetCellType(uint32 posX, uint32 posY) const
 	return field[posX][posY];
 }
 
+GameFieldCellType GameField::GetCellType(uint32 cellIndex) const
+{
+	return field[cellIndex / FIELD_SIZE][cellIndex % FIELD_SIZE];
+}
+
 GameFieldCellCanvasPos GameField::GetCellCanvasPos(uint32 posX, uint32 posY) const
 {
 	return grid[posX][posY];
@@ -60,4 +65,9 @@ void GameField::SetSelectedCellIndex(int32 index)
 int32 GameField::GetSelectedCellIndex() const
 {
 	return selectedCellIndex;
+}
+
+void GameField::SwapCells(int32 index1, int32 index2)
+{
+	std::swap(field[index1 / FIELD_SIZE][index1 % FIELD_SIZE], field[index2 / FIELD_SIZE][index2 % FIELD_SIZE]);
 }

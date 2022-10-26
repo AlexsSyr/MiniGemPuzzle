@@ -40,11 +40,15 @@ public:
 	void UpdateGrid(uint32 canvasW, uint32 canvasH);
 
 	GameFieldCellType GetCellType(uint32 posX, uint32 posY) const;
+	GameFieldCellType GetCellType(uint32 cellIndex) const;
+
 	GameFieldCellCanvasPos GetCellCanvasPos(uint32 posX, uint32 posY) const;
 	GameFieldCellCanvasPos GetCellCanvas—enteredPos(uint32 posX, uint32 posY) const;
 
 	void SetSelectedCellIndex(int32 index);
 	int32 GetSelectedCellIndex() const;
+
+	void SwapCells(int32 index1, int32 index2);
 
 private:
 	GameFieldCellType field[FIELD_SIZE][FIELD_SIZE] = { GameFieldCellType::FREE };
