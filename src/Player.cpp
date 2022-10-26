@@ -20,12 +20,15 @@ void Player::OnMouseButtonDown(int32 posX, int32 posY)
 	const int32 fieldSize = gameField->GetSize();
 	const int32 clickedCellIndex = ComputeClickedCellIndex(posX, posY);
 	const int32 currentSelectedCellIndex = gameField->GetSelectedCellIndex();
+	
+	if (clickedCellIndex == NO_SELECTED_CELL)
+		return;
+
 	const GameFieldCellType clickedCellType = gameField->GetCellType(clickedCellIndex);
 
 	if (clickedCellType == GameFieldCellType::BLOCK 
 		|| clickedCellType == GameFieldCellType::FREE && currentSelectedCellIndex == NO_SELECTED_CELL)
 	{
-		gameField->SetSelectedCellIndex(NO_SELECTED_CELL);
 		return;
 	}
 
@@ -48,7 +51,8 @@ void Player::OnMouseButtonDown(int32 posX, int32 posY)
 		}
 		else
 		{
-			gameField->SetSelectedCellIndex(clickedCellIndex);
+			if(clickedCellType != GameFieldCellType::FREE && clickedCellType != GameFieldCellType::BLOCK)
+				gameField->SetSelectedCellIndex(clickedCellIndex);
 		}
 	}
 }
