@@ -4,6 +4,7 @@
 
 #include <format>
 #include <SDL.h>
+#include "Tools/ImageLoader.h"
 #include <math.h>
 
 void Render::Initialize(SDL_Window* const window) 
@@ -19,10 +20,20 @@ void Render::Initialize(SDL_Window* const window)
 
 	if (render == nullptr)
 		Exception::Throw(std::format("SDL_CreateRenderer failed: {}!", SDL_GetError()));
+
+	SDL_SetRenderDrawBlendMode(render, SDL_BLENDMODE_BLEND);
+
+	ImageLoader::Initialize();
+	backgroundImage = ImageLoader::LoadImage(render, backgroundImgPath);
+	ImageLoader::Release();
+
 }
 
 void Render::Release()
 {
+	if (backgroundImage)
+		SDL_DestroyTexture(backgroundImage);
+
 	if (render)
 		SDL_DestroyRenderer(render);
 }
@@ -45,6 +56,8 @@ void Render::Present()
 
 void Render::DrawField(const GameField& gameField)
 {
+	SDL_RenderCopy(render, backgroundImage, nullptr, nullptr);
+
 	const uint32 fieldSize = gameField.GetSize();
 	const uint32 cellSize = gameField.GetCellSize();
 
@@ -53,6 +66,7 @@ void Render::DrawField(const GameField& gameField)
 		.w = static_cast<int32>(cellSize),
 		.h = static_cast<int32>(cellSize)
 	};
+
 
 	GameFieldCellCanvasPos canvasPos = { };
 
@@ -99,10 +113,10 @@ void Render::DrawFieldCell(const SDL_Rect& rectangle, const GameField& gameField
 	switch (cellType)
 	{
 	case GameFieldCellType::FREE:
-		SDL_SetRenderDrawColor(render, 0xFF, 0xFF, 0xFF, 0xFF);
+		SDL_SetRenderDrawColor(render, 0xFF, 0xFF, 0xFF, 0xDF);
 		break;
 	case GameFieldCellType::BLOCK:
-		SDL_SetRenderDrawColor(render, 0x00, 0x00, 0x00, 0x00);
+		SDL_SetRenderDrawColor(render, 0x00, 0x00, 0x00, 0xFF);
 		break;
 	case GameFieldCellType::GEM_1:
 		SDL_SetRenderDrawColor(render, 0xFF, 0x00, 0x0, 0xFF);
