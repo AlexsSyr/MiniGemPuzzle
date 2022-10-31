@@ -21,7 +21,10 @@ target_link_libraries(MiniGemPuzzle ${SDL2MAIN_LIBRARY})
 #FreeImage
 set(FREE_IMAGE_DIR UNDEFINED CACHE PATH "Path to FreeImage dir.")
 include_directories(${FREE_IMAGE_DIR})
-target_link_libraries(MiniGemPuzzle ${FREE_IMAGE_DIR}/FreeImaged.lib)
+
+
+ target_link_libraries(MiniGemPuzzle ${FREE_IMAGE_DIR}/FreeImage.lib)
+
 
 #Перенос ассетов
 #Уровни
@@ -42,6 +45,7 @@ add_custom_command(TARGET MiniGemPuzzle PRE_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_SOURCE_DIR}/assets/Images $<TARGET_FILE_DIR:MiniGemPuzzle>/Images)
 
+
 add_custom_command(TARGET MiniGemPuzzle PRE_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy
-                       ${FREE_IMAGE_DIR}/FreeImaged.dll $<TARGET_FILE_DIR:MiniGemPuzzle>)
+                       ${FREE_IMAGE_DIR}/FreeImage.dll $<TARGET_FILE_DIR:MiniGemPuzzle>)
